@@ -1,5 +1,6 @@
 LOCAL_PATH := $(call my-dir)
 
+local_bb_path := $(LOCAL_PATH)
 
 # Bionic Branches Switches (CM7/AOSP/ICS)
 BIONIC_ICS := true
@@ -27,14 +28,14 @@ KERNEL_MODULES_DIR ?= /system/lib/modules
 BUSYBOX_CONFIG := minimal full
 $(BUSYBOX_CONFIG):
 	@echo GENERATE INCLUDES FOR BUSYBOX $@
-	@cd $(LOCAL_PATH) && make clean
-	cp $(LOCAL_PATH)/.config-$@ $(LOCAL_PATH)/.config
-	cd $(LOCAL_PATH) && make prepare
-	@#cp $(LOCAL_PATH)/.config $(LOCAL_PATH)/.config-$@
-	@mkdir -p $(LOCAL_PATH)/include-$@
-	cp $(LOCAL_PATH)/include/*.h $(LOCAL_PATH)/include-$@/
-	@rm $(LOCAL_PATH)/include/usage_compressed.h
-	@rm -f $(LOCAL_PATH)/.config-old
+	@cd $(local_bb_path) && make clean
+	cp $(local_bb_path)/.config-$@ $(local_bb_path)/.config
+	cd $(local_bb_path) && make prepare
+	@#cp $(local_bb_path)/.config $(local_bb_path)/.config-$@
+	@mkdir -p $(local_bb_path)/include-$@
+	cp $(local_bb_path)/include/*.h $(local_bb_path)/include-$@/
+	@rm $(local_bb_path)/include/usage_compressed.h
+	@rm -f $(local_bb_path)/.config-old
 
 busybox_prepare: $(BUSYBOX_CONFIG)
 LOCAL_MODULE := busybox_prepare
