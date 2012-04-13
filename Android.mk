@@ -25,7 +25,7 @@ include $(BUILD_STATIC_LIBRARY)
 
 include $(CLEAR_VARS)
 KERNEL_MODULES_DIR ?= /system/lib/modules
-BUSYBOX_CONFIG := minimal full
+BUSYBOX_CONFIG := basic minimal full
 $(BUSYBOX_CONFIG):
 	@echo GENERATE INCLUDES FOR BUSYBOX $@
 	@cd $(local_bb_path) && make clean
@@ -187,7 +187,7 @@ include $(BUILD_EXECUTABLE)
 # Basic Busybox
 
 include $(CLEAR_VARS)
-BUSYBOX_CONFIG:=minimal
+BUSYBOX_CONFIG:=basic
 BUSYBOX_SUFFIX:=static
 LOCAL_SRC_FILES := $(BUSYBOX_SRC_FILES)
 LOCAL_C_INCLUDES := $(BUSYBOX_C_INCLUDES)
