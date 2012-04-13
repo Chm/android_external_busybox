@@ -182,3 +182,31 @@ LOCAL_UNSTRIPPED_PATH := $(PRODUCT_OUT)/symbols/utilities
 LOCAL_MODULE_STEM := busybox
 $(LOCAL_MODULE): busybox_prepare
 include $(BUILD_EXECUTABLE)
+
+
+# Basic Busybox
+
+include $(CLEAR_VARS)
+BUSYBOX_CONFIG:=minimal
+BUSYBOX_SUFFIX:=static
+LOCAL_SRC_FILES := $(BUSYBOX_SRC_FILES)
+LOCAL_C_INCLUDES := $(BUSYBOX_C_INCLUDES)
+LOCAL_CFLAGS := $(BUSYBOX_CFLAGS)
+LOCAL_CFLAGS += \
+  -Dgetusershell=busybox_getusershell \
+  -Dsetusershell=busybox_setusershell \
+  -Dendusershell=busybox_endusershell \
+  -Dttyname_r=busybox_ttyname_r \
+  -Dgetmntent=busybox_getmntent \
+  -Dgetmntent_r=busybox_getmntent_r \
+  -Dgenerate_uuid=busybox_generate_uuid
+LOCAL_FORCE_STATIC_EXECUTABLE := true
+LOCAL_MODULE := basic_busybox
+LOCAL_MODULE_TAGS := optional
+LOCAL_STATIC_LIBRARIES := libclearsilverregex libc libcutils libm libuclibcrpc
+LOCAL_MODULE_CLASS := UTILITY_EXECUTABLES
+LOCAL_MODULE_PATH := $(PRODUCT_OUT)/utilities
+LOCAL_UNSTRIPPED_PATH := $(PRODUCT_OUT)/symbols/utilities
+LOCAL_MODULE_STEM := busybox-basic
+$(LOCAL_MODULE): busybox_prepare
+include $(BUILD_EXECUTABLE)
